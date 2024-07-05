@@ -3,18 +3,24 @@
 import React from 'react'
 import Header from './Header'
 import ProductsHeading from '../products/ProductsHeading'
+import { usePathname } from 'next/navigation'
+
 // import { Theme } from '@radix-ui/themes'
 
 function MainLayout() {
-    return (
-        // <Theme appearance="dark">
-        <>
+    const pathname = usePathname()
+    console.log('pathname', pathname)
+    let component;
+    if (pathname === "/login") {
+        component = <></>
+    } else {
+        component = <>
             <Header />
             <ProductsHeading />
 
         </>
-        // </Theme>
-    )
+    }
+    return component;
 }
 
 export default MainLayout

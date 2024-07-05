@@ -1,6 +1,6 @@
 "use client"
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
-import { Box, Flex, TextField } from '@radix-ui/themes'
+import { Box, Button, Flex, TextField } from '@radix-ui/themes'
 
 import React, { useState } from 'react'
 import { CiShoppingCart } from "react-icons/ci";
@@ -27,7 +27,7 @@ function Header() {
     };
 
     return (
-        <div className='flex justify-between'>
+        <Flex justify={"between"}>
             <Flex align={"center"}>
                 <SiLootcrate className='text-4xl font-bold' />
                 <h1 className='font-bold text-base'>AchCom</h1>
@@ -47,10 +47,13 @@ function Header() {
                     </TextField.Root>
                 </Box>
                 <CiShoppingCart />
+                <Button radius="full" variant="soft" className='cursor-pointer'>
+                    Login
+                </Button>
             </Flex>
 
 
-        </div>
+        </Flex>
     )
 }
 

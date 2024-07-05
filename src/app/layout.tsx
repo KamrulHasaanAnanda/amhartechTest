@@ -4,6 +4,10 @@ import "./globals.css";
 import '@radix-ui/themes/styles.css';
 import MainLayout from '../components/layout/MainLayout'
 import { Theme } from "@radix-ui/themes";
+import { Toaster } from "react-hot-toast";
+import { notificationOption } from '../lib/notification'
+import StoreProvider from "@/lib/StoreProvider";
+// import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,14 +25,18 @@ export default function RootLayout({
     <html lang="en">
 
       <body className={`${inter.className}`}>
-        <Theme appearance="dark" >
-          <div className="p-7">
-            <MainLayout />
+        <StoreProvider>
+          <Theme appearance="dark" accentColor="indigo" >
+            <div className="p-7">
+              <MainLayout />
 
-            {children}
+              {children}
 
-          </div>
-        </Theme>
+            </div>
+          </Theme>
+        </StoreProvider>
+
+        <Toaster toastOptions={notificationOption} />
       </body>
     </html>
   );

@@ -28,7 +28,7 @@ function page() {
     console.log("products", products)
     return (
         <Grid
-            columns={{ xs: '1', sm: '2', md: '5' }} gap="3" mt="5" rows="auto" width="auto"
+            columns={{ xs: '2', sm: '3', md: '5' }} gap="5" mt="5" rows="auto" width="auto"
         >
             {products?.length > 0 ? (
                 products.map((item) => (

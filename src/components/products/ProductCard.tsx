@@ -1,19 +1,38 @@
+
+"use client"
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import { CiStar } from "react-icons/ci";
-
-
+import { FiMinus, FiPlus } from "react-icons/fi";
 
 interface ProductCardProps {
-    product: Product
+    product: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+    const [quantity, setQuantity] = useState(1);
     const discountedPrice = product.price * (1 - product.discountPercentage / 100);
+    const totalPrice = discountedPrice * quantity;
 
+    const incrementQuantity = () => {
+        if (quantity < product.stock) {
+            setQuantity(quantity + 1);
+        }
+    };
+
+    const decrementQuantity = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }
+    };
+
+    const addToCart = () => {
+        // Implement add to cart functionality here
+        console.log(`Added ${quantity} of ${product.title} to cart.`);
+    };
 
     return (
-        <div className="bg-gray-800 text-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 cursor-pointer transition-transform duration-200 flex flex-col justify-center">
+        <div className="bg-gray-800 text-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 cursor-pointer transition-transform duration-200 flex flex-col justify-between gap-3">
             <div className="relative w-full h-48">
                 <Image
                     fill
@@ -39,7 +58,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     ))}
                     <span className="ml-1 text-sm text-gray-400">({product.rating.toFixed(1)})</span>
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center mb-2">
                     <div>
                         <span className="text-lg font-bold text-white">${discountedPrice.toFixed(2)}</span>
                         {product.discountPercentage > 0 && (
@@ -50,6 +69,32 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                         {product.availabilityStatus}
                     </span>
                 </div>
+                <div className="flex justify-between items-center mb-2">
+                    <div className="flex items-center space-x-2">
+                        <button
+                            onClick={decrementQuantity}
+                            className="p-1 bg-gray-700 text-white rounded-full hover:bg-gray-600 transition duration-200"
+                        >
+                            <FiMinus />
+                        </button>
+                        <span className="text-lg font-bold">{quantity}</span>
+                        <button
+                            onClick={incrementQuantity}
+                            className="p-1 bg-gray-700 text-white rounded-full hover:bg-gray-600 transition duration-200"
+                        >
+                            <FiPlus />
+                        </button>
+                    </div>
+                    <div>
+                        <span className="text-lg font-bold text-white">${totalPrice.toFixed(2)}</span>
+                    </div>
+                </div>
+                <button
+                    onClick={addToCart}
+                    className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-400 transition duration-200"
+                >
+                    Add to Cart
+                </button>
             </div>
             <div className="px-4 py-2 bg-gray-700">
                 <p className="text-sm text-gray-300 truncate">{product.description}</p>

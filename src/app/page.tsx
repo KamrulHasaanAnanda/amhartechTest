@@ -22,7 +22,7 @@ const Home: React.FC = async () => {
     <Box mt="5">
 
 
-      <Grid columns={{ xs: '1', sm: '2', md: '5' }} gap="3" mt="5" rows="auto" width="auto">
+      <Grid columns={{ xs: '2', sm: '3', md: '5' }} gap="4" mt="5" rows="auto" width="auto">
         {data?.products?.length > 0 && data.products.map((item: Product) => (
           <ProductCard key={item.id} product={item} />
         ))}

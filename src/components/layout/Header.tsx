@@ -1,12 +1,31 @@
+"use client"
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
 import { Box, Flex, TextField } from '@radix-ui/themes'
-import React from 'react'
+
+import React, { useState } from 'react'
 import { CiShoppingCart } from "react-icons/ci";
 import { SiLootcrate } from "react-icons/si";
 
+import { useRouter, useSearchParams } from 'next/navigation'
 
 
 function Header() {
+
+    const searchParams = useSearchParams()
+    let router = useRouter();
+
+    const productName = searchParams.get('product_name')
+
+    const [searchQuery, setSearchQuery] = useState(productName || '');
+    const [products, setProducts] = useState<Product[]>([]);
+
+    // const [searchQuery, setSearchQuery] = useState(product_name || '');
+
+    const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(event.target.value);
+        router.push(`/search?product_name=${event.target.value}`);
+    };
+
     return (
         <div className='flex justify-between'>
             <Flex align={"center"}>
@@ -16,7 +35,8 @@ function Header() {
 
             <Flex gap={"3"} align={"center"}>
                 <Box maxWidth="250px">
-                    <TextField.Root onChange={(e) => { console.log('eeeee', e) }} placeholder="Search " size="2">
+                    <TextField.Root value={searchQuery}
+                        onChange={handleSearchInputChange} placeholder="Search " size="2">
 
                         <TextField.Slot>
 

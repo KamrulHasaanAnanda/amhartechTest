@@ -1,7 +1,7 @@
 let apiServices = {}
 
 apiServices.allProducts = async () => {
-    let url = `${process.env.BASE_API}/products`;
+    let url = `${process.env.BASE_API}/products?limit=100`;
     // console.log("url",url)
     let response = await fetch(url).then(response => response.json()).catch(error => error)
     // console.log('response', response)

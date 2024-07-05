@@ -7,7 +7,7 @@ import Header from './Header'
 function MainLayout() {
     return (
         // <Theme appearance="dark">
-            <Header />
+        <Header />
         // </Theme>
     )
 }

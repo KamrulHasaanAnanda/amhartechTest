@@ -11,19 +11,19 @@ import { useRouter, useSearchParams } from 'next/navigation'
 
 function Header() {
 
-    const searchParams = useSearchParams()
     let router = useRouter();
+    const searchParams = useSearchParams()
+    const order = searchParams.get('order')
+    const [searchQuery, setSearchQuery] = useState('');
 
-    const productName = searchParams.get('product_name')
-
-    const [searchQuery, setSearchQuery] = useState(productName || '');
-    const [products, setProducts] = useState<Product[]>([]);
-
-    // const [searchQuery, setSearchQuery] = useState(product_name || '');
 
     const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(event.target.value);
-        router.push(`/search?product_name=${event.target.value}`);
+        if (order) {
+            router.push(`/search?product_name=${event.target.value}&sortBy="title"&order=${order}`);
+        } else {
+            router.push(`/search?product_name=${event.target.value}`);
+        }
     };
 
     return (

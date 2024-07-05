@@ -5,7 +5,7 @@ import { CiStar } from "react-icons/ci";
 
 
 interface ProductCardProps {
-    product: Product;
+    product: Product
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {

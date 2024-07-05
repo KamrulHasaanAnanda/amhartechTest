@@ -36,6 +36,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             <div className="relative w-full h-48">
                 <Image
                     fill
+
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     src={product.thumbnail}
                     alt={product.title}
                     className="w-full object-cover"

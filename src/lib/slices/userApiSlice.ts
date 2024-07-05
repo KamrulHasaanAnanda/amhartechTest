@@ -6,8 +6,7 @@ export const api = createApi({
         baseUrl: 'https://dummyjson.com',
         prepareHeaders: (headers) => {
             // Get the token from cookies
-            const token = Cookies.get('authToken');
-
+            const token = Cookies.get('amh');
             if (token) {
                 headers.set('Authorization', `Bearer ${token}`);
             }

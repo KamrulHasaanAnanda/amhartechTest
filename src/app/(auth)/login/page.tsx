@@ -1,6 +1,6 @@
 "use client"
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
+import React, { startTransition, useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button, Flex } from '@radix-ui/themes';
@@ -8,8 +8,11 @@ import { SiLootcrate } from 'react-icons/si';
 import apiServices from '@/services/apiServices';
 import notifications from '@/lib/notification';
 import { setCookie } from 'typescript-cookie';
+import { useUser } from '@/hooks/useUsers';
 
 function login() {
+    let { revalidate, user } = useUser()
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -26,15 +29,27 @@ function login() {
             notifications.success("Logged in successfully");
             setCookie('amh', res?.token)
             setCookie('ramh', res?.refreshToken)
-
-
+            revalidate()
             // .set("tsm", result?.data?.data?.accessToken);
-            router.push('/');
-            setLoading(false);
+            // router.push('/');
+
             return;
         }
 
     };
+
+
+    useEffect(() => {
+        if (user) {
+            setLoading(false);
+
+            startTransition(() => {
+                router.push("/");
+                router.refresh();
+            });
+
+        }
+    }, [user]);
     return (
         <div className="min-h-screen flex flex-col justify-center">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">

@@ -1,5 +1,6 @@
 "use client"
 import { useUser } from '@/hooks/useUsers';
+import notifications from '@/lib/notification';
 import { getUserCartData } from '@/lib/slices/cartSlice';
 import { RootState } from '@/lib/store';
 import getStripe from '@/lib/stripe/stripe';
@@ -51,12 +52,12 @@ function CartItems() {
         });
 
         if (error) {
-            console.warn(error.message);
+            notifications.error(error);
         }
 
         setLoading(false);
     };
-    return (
+    return cartItems?.length > 0 ?
         <div>
             <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden mb-8">
                 <div className="p-4 sm:p-6">
@@ -96,8 +97,10 @@ function CartItems() {
                     Place Order
                 </button> */}
             </div>
+        </div > : <div>
+        <p className="text-xl text-center text-gray-400">Your cart is empty.</p>
         </div>
-    )
+
 }
 
 export default CartItems

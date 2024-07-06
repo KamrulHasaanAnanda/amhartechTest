@@ -9,9 +9,13 @@ export function useUser() {
         refetchOnMountOrArgChange: true, // This will refetch when the component mounts or query args change
     })
 
+    // console.log('error', error)
+
     useEffect(() => {
         if (data) {
             setUser(data)
+        } else {
+            // console.log("error", error)
         }
     }, [data])
 

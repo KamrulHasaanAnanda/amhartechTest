@@ -1,15 +1,24 @@
 
 "use client"
+import { useUser } from '@/hooks/useUsers';
+import notifications from '@/lib/notification';
+import { addToCart } from '@/lib/slices/cartSlice';
+import { AppDispatch } from '@/lib/store';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { CiStar } from "react-icons/ci";
 import { FiMinus, FiPlus } from "react-icons/fi";
+import { useDispatch } from 'react-redux';
 
 interface ProductCardProps {
     product: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+    let { revalidate, user } = useUser()
+    console.log('user', user)
+
+    const dispatch = useDispatch<AppDispatch>();
     const [quantity, setQuantity] = useState(1);
     const discountedPrice = product.price * (1 - product.discountPercentage / 100);
     const totalPrice = discountedPrice * quantity;
@@ -26,11 +35,32 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         }
     };
 
-    const addToCart = () => {
-        // Implement add to cart functionality here
+
+    const handleAddToCart = () => {
+        if (user) {
+            console.log('Adding to cart:', {
+                id: product.id,
+                title: product.title,
+                price: discountedPrice,
+                quantity: quantity,
+                userId: user.id,
+            });
+
+            dispatch(addToCart({
+                id: product.id,
+                title: product.title,
+                price: discountedPrice,
+                quantity: quantity,
+                userId: user.id,
+            }));
+
+            notifications.success("Product added successfully")
+        } else {
+            notifications.error("Please login to add to cart")
+
+        }
         console.log(`Added ${quantity} of ${product.title} to cart.`);
     };
-
     return (
         <div className="bg-gray-800 text-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 cursor-pointer transition-transform duration-200 flex flex-col justify-between gap-3">
             <div className="relative w-full h-48">
@@ -92,7 +122,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     </div>
                 </div>
                 <button
-                    onClick={addToCart}
+                    onClick={handleAddToCart}
                     className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-400 transition duration-200"
                 >
                     Add to Cart

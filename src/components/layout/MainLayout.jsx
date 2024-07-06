@@ -11,7 +11,7 @@ function MainLayout() {
     const pathname = usePathname()
     console.log('pathname', pathname)
     let component;
-    if (pathname === "/login") {
+    if (pathname === "/login" || pathname === "/cart"|| pathname === "/checkout") {
         component = <></>
     } else {
         component = <>

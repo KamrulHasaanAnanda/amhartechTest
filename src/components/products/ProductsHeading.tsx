@@ -11,10 +11,12 @@ function ProductsHeading() {
 
 
     const debouncedRouterPush = debounceRouterPush((event: string) => {
-        if (productName) {
-            router.push(`/search?product_name=${productName}&sortBy=title&order=${event}`);
+        if (productName && event !== "Default") {
+            router.push(`/search?product_name=${productName}&sortBy=price&order=${event}`);
+        } else if (event === "Default") {
+            router.push(`/`);
         } else {
-            router.push(`/search?sortBy=title&order=${event}`);
+            router.push(`/search?sortBy=price&order=${event}`);
         }
     }, 500);
     return (
@@ -22,11 +24,13 @@ function ProductsHeading() {
             <Text className='' size="6">Our products</Text>
             <Flex align="center" gap="2">
                 <Text size="2" className="hidden sm:block">sort by:</Text>
-                <Select.Root defaultValue="asc" onValueChange={(event) => {
+                <Select.Root defaultValue="Default" onValueChange={(event) => {
                     debouncedRouterPush(event)
                 }}>
                     <Select.Trigger color="gray" />
                     <Select.Content color="gray" variant="solid">
+                        <Select.Item value="Default">Default</Select.Item>
+
                         <Select.Item value="asc">Title in ascending order</Select.Item>
                         <Select.Item value="desc">Title in descending order</Select.Item>
                     </Select.Content>

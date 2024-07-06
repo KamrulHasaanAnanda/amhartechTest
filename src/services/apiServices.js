@@ -3,20 +3,21 @@ import { getCookie } from "typescript-cookie";
 let apiServices = {}
 
 apiServices.allProducts = async () => {
-    let url = `${process.env.BASE_API}/products?limit=100`;
+    let url = `${process.env.BASE_API}/products?limit=150`;
+    console.log(url);
     let response = await fetch(url).then(response => response.json()).catch(error => error)
     return response;
 }
 
 apiServices.searchedProducts = async (query, order) => {
-    let url = `${process.env.NEXT_PUBLIC_BASE_API}/products/`;
+    let url = `${process.env.NEXT_PUBLIC_BASE_API}/products/?limit=150&`;
     if (query) {
         url += `search?q=${query}`;
 
     } else if (!query && order) {
-        url += `?sortBy=title&order=${order}`;
+        url += `sortBy=price&order=${order}`;
     } else {
-        url += `?search?q=${query}&sortBy=title"&order=asc`;
+        url += `search?q=${query}&sortBy=price"&order=${order}`;
     }
     let response = await fetch(url).then(response => response.json()).catch(error => error)
     return response;

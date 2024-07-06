@@ -17,15 +17,13 @@ import { useThrottle } from '@/hooks/useThrottle';
 
 
 function Header() {
-    let { revalidate, user } = useUser()
-
+    let { user } = useUser()
     let router = useRouter();
     const searchParams = useSearchParams()
     const order = searchParams.get('order')
     const [searchQuery, setSearchQuery] = useState('');
 
     const dispatch = useDispatch();
-    // Assuming you have a user state
     const cartItems = useSelector((state: RootState) => state.cart.items);
 
     useEffect(() => {

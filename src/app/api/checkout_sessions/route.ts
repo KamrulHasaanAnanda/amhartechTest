@@ -15,9 +15,9 @@ export async function POST(request: Request) {
             price_data: {
                 currency: 'usd',
                 product_data: {
-                    name: `Product ${item.id}`,
+                    name: item.title, // Use item title as product name
                 },
-                unit_amount: 2000, // Example price, replace with actual price
+                unit_amount: Math.round(item.price * 100), // Convert price to cents
             },
         }));
 

@@ -15,8 +15,8 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-    let { revalidate, user } = useUser()
-    console.log('user', user)
+    let { user } = useUser()
+
 
     const dispatch = useDispatch<AppDispatch>();
     const [quantity, setQuantity] = useState(1);

@@ -26,6 +26,7 @@ function CartItems() {
     }, [dispatch, user])
 
     const cartItems = useSelector((state: RootState) => state.cart.items);
+    console.log('cartItems', cartItems)
 
     const grandTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     const [loading, setLoading] = useState(false);
@@ -39,8 +40,7 @@ function CartItems() {
             },
             body: JSON.stringify({
                 items: [
-                    { id: 1, quantity: 1 },
-                    // Add more items here
+                    ...cartItems
                 ],
             }),
         });
@@ -85,7 +85,7 @@ function CartItems() {
             <div className="bg-gray-800 rounded-lg shadow-lg p-4 sm:p-6">
                 {/* <h2 className="text-xl sm:text-2xl font-semibold mb-4">Payment Details</h2> */}
                 {/* Add your payment form here */}
-                <Button disabled={loading} onClick={handleCheckout} variant="classic" >
+                <Button className='w-full cursor-pointer h-12 bg-indigo-600 text-white py-3 px-4 rounded-lg text-lg font-semibold hover:bg-indigo-500 transition-colors duration-300 ease-in-out mt-2' disabled={loading} onClick={handleCheckout} variant="classic" >
                     <Spinner loading={loading}>
 
                     </Spinner>

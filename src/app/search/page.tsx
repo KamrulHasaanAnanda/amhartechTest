@@ -23,9 +23,6 @@ function page() {
         }
 
     }
-
-
-    console.log("products", products)
     return (
         <Grid
             columns={{ xs: '2', sm: '3', md: '5' }} gap="5" mt="5" rows="auto" width="auto"

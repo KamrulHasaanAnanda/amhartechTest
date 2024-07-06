@@ -14,9 +14,9 @@ function ProductsHeading() {
 
     return (
         <Flex align="center" justify="between" width="100%" my="5">
-            <Text size="8">Our products</Text>
+            <Text className='' size="6">Our products</Text>
             <Flex align="center" gap="2">
-                <Text size="2">sort by:</Text>
+                <Text size="2" className="hidden sm:block">sort by:</Text>
                 <Select.Root defaultValue="asc" onValueChange={(event) => {
                     if (productName) {
                         router.push(`/search?product_name=${productName}&sortBy="title"&order=${event}`);

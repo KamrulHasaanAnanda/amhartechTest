@@ -47,8 +47,8 @@ function Header() {
     return (
         <Flex justify={"between"}>
             <Flex align={"center"}>
-                <SiLootcrate className='text-4xl font-bold' />
-                <h1 className='font-bold text-base'>AchCom</h1>
+                <SiLootcrate className='text-4xl font-bold'/>
+                <h1 className='font-bold text-base hidden sm:block'>AchCom</h1>
             </Flex>
 
             <Flex gap={"3"} align={"center"}>

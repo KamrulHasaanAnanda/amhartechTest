@@ -27,7 +27,7 @@ export default function RootLayout({
       <body className={`${inter.className}`}>
         <StoreProvider>
           <Theme appearance="dark" accentColor="indigo" >
-            <div className="p-7">
+            <div className="p-6">
               <MainLayout />
 
               {children}

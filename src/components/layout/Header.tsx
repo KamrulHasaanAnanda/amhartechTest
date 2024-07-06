@@ -13,6 +13,7 @@ import UserDropdown from './UserDropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import { getUserCartData } from '@/lib/slices/cartSlice';
+import { useThrottle } from '@/hooks/useThrottle';
 
 
 function Header() {
@@ -33,21 +34,26 @@ function Header() {
         }
     }, [dispatch, user]);
 
-    const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchQuery(event.target.value);
-        if (order) {
-            router.push(`/search?product_name=${event.target.value}&sortBy="title"&order=${order}`);
-        } else {
-            router.push(`/search?product_name=${event.target.value}`);
-        }
-    };
 
+
+    const throttledSearch = useThrottle((query: string) => {
+        const url = order
+            ? `/search?product_name=${query}&sortBy="title"&order=${order}`
+            : `/search?product_name=${query}`;
+        router.push(url);
+    }, 300);
+
+    const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const query = event.target.value;
+        setSearchQuery(query);
+        throttledSearch(query);
+    };
 
 
     return (
         <Flex justify={"between"}>
             <Flex align={"center"}>
-                <SiLootcrate className='text-4xl font-bold'/>
+                <SiLootcrate className='text-4xl font-bold' />
                 <h1 className='font-bold text-base hidden sm:block'>AchCom</h1>
             </Flex>
 

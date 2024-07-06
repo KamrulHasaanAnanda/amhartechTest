@@ -11,22 +11,28 @@ function ProductsHeading() {
     const productName = searchParams.get('product_name');
 
 
-    const debouncedRouterPush = useThrottle((event: string) => {
-        if (productName && event !== "Default") {
-            router.push(`/search?product_name=${productName}&sortBy=price&order=${event}`);
-        } else if (event === "Default") {
-            router.push(`/`);
-        } else {
-            router.push(`/search?sortBy=price&order=${event}`);
-        }
-    }, 500);
+    // const debouncedRouterPush = useThrottle((event: string) => {
+    //     if (productName && event !== "Default") {
+    //         router.push(`/search?product_name=${productName}&sortBy=price&order=${event}`);
+    //     } else if (event === "Default") {
+    //         router.push(`/`);
+    //     } else {
+    //         router.push(`/search?sortBy=price&order=${event}`);
+    //     }
+    // }, 500);
     return (
         <Flex align="center" justify="between" width="100%" my="5">
             <Text className='' size="6">Our products</Text>
             <Flex align="center" gap="2">
                 <Text size="2" className="hidden sm:block">sort by:</Text>
                 <Select.Root defaultValue="Default" onValueChange={(event) => {
-                    debouncedRouterPush(event)
+                    if (productName && event !== "Default") {
+                        router.push(`/search?product_name=${productName}&sortBy=price&order=${event}`);
+                    } else if (event === "Default") {
+                        router.push(`/`);
+                    } else {
+                        router.push(`/search?sortBy=price&order=${event}`);
+                    }
                 }}>
                     <Select.Trigger color="gray" />
                     <Select.Content color="gray" variant="solid">

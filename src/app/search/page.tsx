@@ -10,7 +10,6 @@ import React, { useEffect, useState } from 'react'
 function page() {
     const searchParams = useSearchParams()
     const productName = searchParams.get('product_name')
-    const sortBy = searchParams.get('sortBy')
     const order = searchParams.get('order')
 
     const [products, setProducts] = useState<Product[]>([]);
@@ -25,7 +24,7 @@ function page() {
 
     }
 
-    const throttledSearchAPI = debounce(getSearchedProduct, 500);
+    const throttledSearchAPI = useThrottle(getSearchedProduct, 500);
 
     useEffect(() => {
         throttledSearchAPI()

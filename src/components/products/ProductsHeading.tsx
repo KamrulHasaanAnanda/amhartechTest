@@ -28,8 +28,11 @@ function ProductsHeading() {
                 <Select.Root defaultValue="Default" onValueChange={(event) => {
                     if (productName && event !== "Default") {
                         router.push(`/search?product_name=${productName}&sortBy=price&order=${event}`);
-                    } else if (event === "Default") {
+                    } else if (productName && event === "Default") {
+                        router.push(`/search?product_name=${productName}`);
+                    } else if (!productName && event === "Default") {
                         router.push(`/`);
+
                     } else {
                         router.push(`/search?sortBy=price&order=${event}`);
                     }

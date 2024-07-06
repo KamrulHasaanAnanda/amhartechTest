@@ -10,14 +10,15 @@ apiServices.allProducts = async () => {
 }
 
 apiServices.searchedProducts = async (query, order) => {
-    let url = `${process.env.NEXT_PUBLIC_BASE_API}/products/search?limit=150&`;
-    if (query) {
+    let url = `${process.env.NEXT_PUBLIC_BASE_API}/products/search?limit=200&`;
+    if (query && !order) {
         url += `q=${query}`;
-
     } else if (!query && order) {
         url += `sortBy=price&order=${order}`;
+    } else if (query && order) {
+        url += `q=${query}&sortBy=price&order=${order}`;
     } else {
-        url += `search?&sortBy=price`;
+        url += `&sortBy=price`;
     }
     let response = await fetch(url).then(response => response.json()).catch(error => error)
     return response;

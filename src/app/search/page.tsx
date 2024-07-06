@@ -11,7 +11,7 @@ function page() {
     const searchParams = useSearchParams()
     const productName = searchParams.get('product_name')
     const order = searchParams.get('order')
-
+    console.log('order', order)
     const [products, setProducts] = useState<Product[]>([]);
 
     let getSearchedProduct = async () => {

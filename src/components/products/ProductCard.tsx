@@ -69,7 +69,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     src={product.thumbnail}
                     alt={product.title}
-                  
                 />
                 {product.discountPercentage > 0 && (
                     <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">
@@ -105,6 +104,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                         <button
                             onClick={decrementQuantity}
                             className="p-1 bg-gray-700 text-white rounded-full hover:bg-gray-600 transition duration-200"
+                            aria-label="Decrement quantity"
                         >
                             <FiMinus />
                         </button>
@@ -112,6 +112,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                         <button
                             onClick={incrementQuantity}
                             className="p-1 bg-gray-700 text-white rounded-full hover:bg-gray-600 transition duration-200"
+                            aria-label="Increment quantity"
                         >
                             <FiPlus />
                         </button>
@@ -127,10 +128,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     Add to Cart
                 </button>
             </div>
-            <div className="px-4 py-2 bg-gray-700">
+            {/* <div className="px-4 py-2 bg-gray-700">
                 <p className="text-sm text-gray-300 truncate">{product.description}</p>
-            </div>
+            </div> */}
         </div>
+
     );
 };
 

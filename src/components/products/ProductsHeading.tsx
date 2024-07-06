@@ -1,28 +1,29 @@
 "use client"
+import { debounce, debounceRouterPush } from '@/configs/globalFunctions';
 import { Flex, Select, Text } from '@radix-ui/themes'
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useState } from 'react'
+import React, { useCallback } from 'react'
 
 function ProductsHeading() {
-
-    let router = useRouter();
-    const searchParams = useSearchParams()
-    const productName = searchParams.get('product_name')
-
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const productName = searchParams.get('product_name');
 
 
-
+    const debouncedRouterPush = debounceRouterPush((event: string) => {
+        if (productName) {
+            router.push(`/search?product_name=${productName}&sortBy=title&order=${event}`);
+        } else {
+            router.push(`/search?sortBy=title&order=${event}`);
+        }
+    }, 500);
     return (
         <Flex align="center" justify="between" width="100%" my="5">
             <Text className='' size="6">Our products</Text>
             <Flex align="center" gap="2">
                 <Text size="2" className="hidden sm:block">sort by:</Text>
                 <Select.Root defaultValue="asc" onValueChange={(event) => {
-                    if (productName) {
-                        router.push(`/search?product_name=${productName}&sortBy="title"&order=${event}`);
-                    } else {
-                        router.push(`/search?sortBy="title"&order=${event}`);
-                    }
+                    debouncedRouterPush(event)
                 }}>
                     <Select.Trigger color="gray" />
                     <Select.Content color="gray" variant="solid">
@@ -35,4 +36,4 @@ function ProductsHeading() {
     )
 }
 
-export default ProductsHeading
+export default ProductsHeading;

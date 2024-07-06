@@ -26,7 +26,6 @@ function CartItems() {
     }, [dispatch, user])
 
     const cartItems = useSelector((state: RootState) => state.cart.items);
-    console.log('cartItems', cartItems)
 
     const grandTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     const [loading, setLoading] = useState(false);

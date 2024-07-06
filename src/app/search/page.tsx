@@ -1,5 +1,7 @@
 "use client"
 import ProductCard from '@/components/products/ProductCard';
+import { debounce } from '@/configs/globalFunctions';
+import { useThrottle } from '@/hooks/useThrottle';
 import apiServices from '@/services/apiServices';
 import { Grid } from '@radix-ui/themes';
 import { useSearchParams } from 'next/navigation';
@@ -11,11 +13,6 @@ function page() {
     const order = searchParams.get('order')
     const [products, setProducts] = useState<Product[]>([]);
 
-
-    useEffect(() => {
-        getSearchedProduct()
-    }, [productName, order])
-
     let getSearchedProduct = async () => {
         let res = await apiServices.searchedProducts(productName, order);
         if (res?.products?.length > 0) {
@@ -23,6 +20,14 @@ function page() {
         }
 
     }
+
+    const throttledSearchAPI = useThrottle(getSearchedProduct, 300);
+
+    useEffect(() => {
+        throttledSearchAPI()
+    }, [productName, order])
+
+
     return (
         <Grid
             columns={{ xs: '2', sm: '3', md: '5' }} gap="5" mt="5" rows="auto" width="auto"

@@ -15,11 +15,14 @@ const SuccessPage: React.FC = () => {
 
     const router = useRouter()
     const session_id = searchParams.get('session_id')
+    // console.log("session_id",session_id)
     useEffect(() => {
+        console.log("session_id", session_id, user)
         if (session_id && user?.id) {
+
             let userID = user?.id
             dispatch(removeUserCartData({ userId: userID }));
-            (user?.id)
+
             const timer = setTimeout(() => {
                 router.push("/");
             }, 1000);
@@ -27,7 +30,7 @@ const SuccessPage: React.FC = () => {
             // Cleanup function to clear the timeout if the component unmounts
             return () => clearTimeout(timer);
         }
-    }, [session_id, router]);
+    }, [session_id, user]);
 
 
     return (

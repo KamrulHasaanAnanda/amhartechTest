@@ -77,7 +77,7 @@ function Header() {
                     <CiShoppingCart className="text-2xl" />
                 </div>
                 {
-                    user ? <UserDropdown>
+                    user?.image ? <UserDropdown>
                         <Image src={user?.image} alt='user' width={40} height={40} className="rounded-[50%]" />
                     </UserDropdown> :
                         <Button radius="full" onClick={() => {

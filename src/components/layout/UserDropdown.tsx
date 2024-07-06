@@ -44,10 +44,10 @@ function UserDropdown({
                                 user?.image === null ? (
                                     <div className="w-full h-full bg-gray-200"></div>
                                 ) : <Image
-                                    src={user?.image}
+                                    src={user?.image || "vercel.svg"}
                                     alt={`${user?.firstName} ${user?.lastName}`}
-                                    layout="fill"
-                                    objectFit="cover"
+                                    fill
+
                                 />
                             }
 

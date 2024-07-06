@@ -10,7 +10,7 @@ import notifications from '@/lib/notification';
 import { setCookie } from 'typescript-cookie';
 import { useUser } from '@/hooks/useUsers';
 
-function login() {
+function Login() {
     let { revalidate, user } = useUser()
 
     const [username, setUsername] = useState('');
@@ -141,4 +141,4 @@ function login() {
     )
 }
 
-export default login
+export default Login

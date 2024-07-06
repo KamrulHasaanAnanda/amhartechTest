@@ -7,7 +7,7 @@ import { Grid } from '@radix-ui/themes';
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
-function page() {
+function Page() {
     const searchParams = useSearchParams()
     const productName = searchParams.get('product_name')
     const order = searchParams.get('order')
@@ -46,4 +46,4 @@ function page() {
     )
 }
 
-export default page
+export default Page

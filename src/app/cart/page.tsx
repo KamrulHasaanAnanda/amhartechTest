@@ -7,7 +7,7 @@ import React, { useEffect } from 'react'
 import { FiMinus, FiPlus, FiTrash2 } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 
-function page() {
+function Page() {
     const router = useRouter();
 
     let { user } = useUser()
@@ -106,4 +106,4 @@ function page() {
     )
 }
 
-export default page
+export default Page

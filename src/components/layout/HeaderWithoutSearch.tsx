@@ -10,14 +10,11 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useUser } from '@/hooks/useUsers';
 import Image from 'next/image';
 import UserDropdown from './UserDropdown';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/lib/store';
-import { getUserCartData } from '@/lib/slices/cartSlice';
-import { useThrottle } from '@/hooks/useThrottle';
+
 
 
 function Header() {
-    let { revalidate, user } = useUser()
+    let { user } = useUser()
 
     let router = useRouter();
 

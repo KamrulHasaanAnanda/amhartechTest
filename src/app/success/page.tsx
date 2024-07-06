@@ -5,7 +5,7 @@ import { removeUserCartData } from '@/lib/slices/cartSlice';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
+import { Suspense } from 'react'
 
 const SuccessPage: React.FC = () => {
     const dispatch = useDispatch();
@@ -33,7 +33,9 @@ const SuccessPage: React.FC = () => {
     }, [session_id, user]);
 
 
-    return (
+    return <Suspense>
+
+
         <div className="flex flex-col items-center justify-center gap-4" style={{
             height: "calc(100vh - 100px)"
         }}>
@@ -45,7 +47,8 @@ const SuccessPage: React.FC = () => {
                 </>
             }
         </div>
-    );
+    </Suspense>
+
 };
 
 export default SuccessPage;

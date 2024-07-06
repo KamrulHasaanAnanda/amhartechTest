@@ -1,5 +1,6 @@
 "use client"
 import { debounce, debounceRouterPush } from '@/configs/globalFunctions';
+import { useThrottle } from '@/hooks/useThrottle';
 import { Flex, Select, Text } from '@radix-ui/themes'
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useCallback } from 'react'
@@ -10,7 +11,7 @@ function ProductsHeading() {
     const productName = searchParams.get('product_name');
 
 
-    const debouncedRouterPush = debounceRouterPush((event: string) => {
+    const debouncedRouterPush = useThrottle((event: string) => {
         if (productName && event !== "Default") {
             router.push(`/search?product_name=${productName}&sortBy=price&order=${event}`);
         } else if (event === "Default") {
@@ -31,8 +32,8 @@ function ProductsHeading() {
                     <Select.Content color="gray" variant="solid">
                         <Select.Item value="Default">Default</Select.Item>
 
-                        <Select.Item value="asc">Title in ascending order</Select.Item>
-                        <Select.Item value="desc">Title in descending order</Select.Item>
+                        <Select.Item value="asc">Price low to high</Select.Item>
+                        <Select.Item value="desc">Price high to low</Select.Item>
                     </Select.Content>
                 </Select.Root>
             </Flex>

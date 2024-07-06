@@ -16,14 +16,16 @@ function page() {
     const [products, setProducts] = useState<Product[]>([]);
 
     let getSearchedProduct = async () => {
-        let res = await apiServices.searchedProducts(productName,order);
+        let res = await apiServices.searchedProducts(productName, order);
         if (res?.products?.length > 0) {
             setProducts(res.products)
+        } else {
+            setProducts([])
         }
 
     }
 
-    const throttledSearchAPI = useThrottle(getSearchedProduct, 300);
+    const throttledSearchAPI = debounce(getSearchedProduct, 500);
 
     useEffect(() => {
         throttledSearchAPI()
